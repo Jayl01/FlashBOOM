@@ -9,6 +9,8 @@ using System.Drawing;
 using System.Numerics;
 using AnotherLib.Collision;
 using FlashBOOM.Entities.Projectiles;
+using Microsoft.Xna.Framework;
+using System;
 
 namespace FlashBOOM.Entities.Projectiles
 {
@@ -54,7 +56,7 @@ namespace FlashBOOM.Entities.Projectiles
             {
                 DestroyInstance();
             }
-            DetectCollisions(Main.activeEnemies)
+            DetectCollisions(Main.activeEnemies);
 
            
             
