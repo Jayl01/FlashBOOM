@@ -5,8 +5,6 @@ Little recoil ; can't see for a second
 Upgradeable object
 It stays alive for 5 seconds or dies hitting an object or an enemy 
 */
-using System.Drawing;
-using System.Numerics;
 using AnotherLib.Collision;
 using FlashBOOM.Entities.Projectiles;
 using Microsoft.Xna.Framework;
