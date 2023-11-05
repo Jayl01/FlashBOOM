@@ -10,3 +10,4 @@ bin
 Content/bin
 Content/obj
 Dungeon Adventure Gang.csproj
+.vscode/*
