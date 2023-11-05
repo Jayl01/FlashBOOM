@@ -1,9 +1,8 @@
-﻿using GameTemplate.Effects;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace GameTemplate.World
+namespace FlashBOOM.World
 {
     public class Tile
     {
@@ -37,12 +36,11 @@ namespace GameTemplate.World
         public enum TileType
         {
             None,
+            Void,
             Grass,
-            LeftGrass,
-            RightGrass,
-            Dirt,
-            DirtToUndergroundDirt,
-            UndergroundDirt
+            Grass_2,
+            Grass_3,
+            Grass_4
         }
 
         public enum CollisionStyle
@@ -51,7 +49,7 @@ namespace GameTemplate.World
             Solid
         }
 
-        public static Tile GetTileInfo(TileType tileType, Vector2 position, bool backgroundTile = false)
+        public static Tile GetTileInfo(TileType tileType, Vector2 position)
         {
             Tile tile = new Tile();
             if (tileType == TileType.None)
@@ -59,28 +57,14 @@ namespace GameTemplate.World
 
             switch (tileType)
             {
-                case TileType.Dirt:
+                case TileType.Void:
                     tile.tileCollisionStyle = CollisionStyle.Solid;
                     break;
 
                 case TileType.Grass:
-                    tile.tileCollisionStyle = CollisionStyle.Solid;
                     break;
 
-                case TileType.LeftGrass:
-                    tile.tileCollisionStyle = CollisionStyle.Solid;
-                    break;
-
-                case TileType.RightGrass:
-                    tile.tileCollisionStyle = CollisionStyle.Solid;
-                    break;
-
-                case TileType.DirtToUndergroundDirt:
-                    tile.tileCollisionStyle = CollisionStyle.Solid;
-                    break;
-
-                case TileType.UndergroundDirt:
-                    tile.tileCollisionStyle = CollisionStyle.Solid;
+                case TileType.Grass_2:
                     break;
             }
             tile.tileType = tileType;
@@ -94,9 +78,6 @@ namespace GameTemplate.World
                 tile.tileCollisionRect = new Rectangle((int)position.X, (int)position.Y, 16, 16);
             }
             tile.tileColor = Color.White;
-            if (backgroundTile)
-                tile.tileColor = Color.White * 0.5f;
-
             return tile;
         }
 

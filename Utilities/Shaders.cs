@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameTemplate.Utilities
+namespace FlashBOOM.Utilities
 {
     public class Shaders
     {
@@ -13,8 +13,6 @@ namespace GameTemplate.Utilities
 
         public static void DrawAllScreenEffectShaders(RenderTarget2D gameTarget)
         {
-            gradientEffect.Parameters["bottomColor"].SetValue(bottomGradientColor.ToVector3());
-            gradientEffect.Parameters["topColor"].SetValue(topGradientColor.ToVector3());
         }
     }
 }

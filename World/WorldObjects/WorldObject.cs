@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameTemplate.World.WorldObjects
+namespace FlashBOOM.World.WorldObjects
 {
     public class WorldObject
     {

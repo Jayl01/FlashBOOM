@@ -1,8 +1,8 @@
 ﻿using AnotherLib.Collision;
-using GameTemplate.World;
+using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 
-namespace GameTemplate.Entities.Projectiles
+namespace FlashBOOM.Entities.Projectiles
 {
     public class Projectile : CollisionBody
     {

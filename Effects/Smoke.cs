@@ -1,10 +1,10 @@
 ﻿using AnotherLib;
-using GameTemplate;
-using GameTemplate.Effects;
+using FlashBOOM;
+using FlashBOOM.Effects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameTemplate.Effects
+namespace FlashBOOM.Effects
 {
     public class Smoke : VisualEffect
     {

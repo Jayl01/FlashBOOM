@@ -1,15 +1,15 @@
-﻿using GameTemplate.World;
+﻿using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace GameTemplate.Effects
+namespace FlashBOOM.Effects
 {
     public class Gore : VisualEffect
     {
         public const int AmountOfGoreTextures = 4;
-        public const byte GameTemplate_1 = 0;
-        public const byte GameTemplate_2 = 1;
+        public const byte FlashBOOM_1 = 0;
+        public const byte FlashBOOM_2 = 1;
 
         public static Texture2D[] goreTextures;
         private readonly Vector2[] GoreSizes = new Vector2[2]

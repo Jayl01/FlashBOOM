@@ -2,12 +2,12 @@
 using AnotherLib.UI;
 using AnotherLib.UI.UIElements;
 using AnotherLib.Utilities;
-using GameTemplate.Effects;
-using GameTemplate.Utilities;
+using FlashBOOM.Effects;
+using FlashBOOM.Utilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameTemplate.UI
+namespace FlashBOOM.UI
 {
     public class GameOverScreen : UIObject
     {

@@ -1,7 +1,7 @@
 ﻿using AnotherLib;
 using Microsoft.Xna.Framework.Audio;
 
-namespace GameTemplate.Utilities
+namespace FlashBOOM.Utilities
 {
     public class GameMusicPlayer
     {
@@ -9,6 +9,7 @@ namespace GameTemplate.Utilities
 
         public static void Update()
         {
+            return;
             if (mainTheme.State != SoundState.Playing)
             {
                 mainTheme.Volume = GameData.MusicVolume;

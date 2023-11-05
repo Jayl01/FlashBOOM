@@ -4,14 +4,14 @@ using AnotherLib.Drawing;
 using AnotherLib.Input;
 using AnotherLib.UI;
 using AnotherLib.Utilities;
-using GameTemplate.Effects;
-using GameTemplate.Entities.Enemies;
-using GameTemplate.Entities.Players;
-using GameTemplate.Entities.Projectiles;
-using GameTemplate.UI;
-using GameTemplate.Utilities;
-using GameTemplate.World;
-using GameTemplate.World.WorldObjects;
+using FlashBOOM.Effects;
+using FlashBOOM.Entities.Enemies;
+using FlashBOOM.Entities.Players;
+using FlashBOOM.Entities.Projectiles;
+using FlashBOOM.UI;
+using FlashBOOM.Utilities;
+using FlashBOOM.World;
+using FlashBOOM.World.WorldObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -20,7 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using static AnotherLib.Drawing.SpriteBatchData;
 
-namespace GameTemplate
+namespace FlashBOOM
 {
     public class Main : Game
     {
@@ -173,7 +173,7 @@ namespace GameTemplate
             camera.Update();
         }
 
-        protected override void Draw(GameTime gameGameTemplate)
+        protected override void Draw(GameTime gameFlashBOOM)
         {
             GraphicsDevice.SetRenderTarget(backgroundTarget);
             GraphicsDevice.Clear(Color.CornflowerBlue);

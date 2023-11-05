@@ -1,10 +1,9 @@
-﻿using GameTemplate.World.WorldObjects;
+﻿using FlashBOOM.World.WorldObjects;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 
-namespace GameTemplate.World
+namespace FlashBOOM.World
 {
     public class WorldClass
     {
@@ -24,12 +23,39 @@ namespace GameTemplate.World
             {
                 for (int y = 0; y < height; y++)
                 {
-                    worldTiles[x, y] = Tile.GetTileInfo(Tile.TileType.None, new Vector2(x, y) * 16f);
+                    worldTiles[x, y] = Tile.GetTileInfo(Tile.TileType.Void, new Vector2(x, y) * 16f);
                 }
             }
             Main.camera.bounds = new Vector2(width, height) * 16;
 
+            int paddingSize = 5;
+            for (int x = paddingSize; x < width - paddingSize; x++)
+            {
+                for (int y = paddingSize; y < height - paddingSize; y++)
+                {
+                    worldTiles[x, y] = Tile.GetTileInfo((Tile.TileType)Main.random.Next((int)Tile.TileType.Grass, (int)Tile.TileType.Grass + 1), new Vector2(x, y) * 16f);
+                }
+            }
 
+            int darkPatchAmount = Main.random.Next(12, 24 + 1);
+            for (int i = 0; i < darkPatchAmount; i++)
+            {
+                int darkPatchRadius = Main.random.Next(4, 16 + 1);
+                Point darkPatchCenter = new Point(Main.random.Next(paddingSize, width - paddingSize + 1), Main.random.Next(paddingSize, height - paddingSize + 1));
+                for (int x = darkPatchCenter.X - (darkPatchRadius / 2); x < darkPatchCenter.X + (darkPatchRadius / 2); x++)
+                {
+                    for (int y = darkPatchCenter.Y - (darkPatchRadius / 2); y < darkPatchCenter.Y - (darkPatchRadius / 2); y++)
+                    {
+                        if (CoordsInBounds(width, height, new Point(x,y)) && Vector2.Distance(darkPatchCenter.ToVector2(), new Vector2(x, y)) < darkPatchRadius)
+                        {
+                            if (worldTiles[x, y].tileType == Tile.TileType.Grass)
+                                worldTiles[x, y] = Tile.GetTileInfo(Tile.TileType.Grass_3, new Vector2(x, y) * 16f);
+                            else if (worldTiles[x, y].tileType == Tile.TileType.Grass_2)
+                                worldTiles[x, y] = Tile.GetTileInfo(Tile.TileType.Grass_4, new Vector2(x, y) * 16f);
+                        }
+                    }
+                }
+            }
 
             WorldData worldData = new WorldData(0, width, height);
             worldData.tiles = worldTiles;
@@ -57,28 +83,9 @@ namespace GameTemplate.World
 
         public static void CleanupWorld()
         {
-            for (int x = 0; x < activeWorldData.dimensions.X; x++)
-            {
-                for (int y = 0; y < activeWorldData.dimensions.Y; y++)
-                {
-                    Tile currentTile = activeWorldData.tiles[x, y];
-                    if (x > 1 && x < activeWorldData.dimensions.X - 1)
-                    {
-                        Tile leftTile = activeWorldData.tiles[x - 1, y];
-                        Tile rightTile = activeWorldData.tiles[x + 1, y];
-                        if (currentTile.tileType == Tile.TileType.Grass)
-                        {
-                            if (leftTile.tileType == Tile.TileType.None)
-                                currentTile = Tile.GetTileInfo(Tile.TileType.LeftGrass, currentTile.tilePosition);
-                            if (rightTile.tileType == Tile.TileType.None)
-                                currentTile = Tile.GetTileInfo(Tile.TileType.RightGrass, currentTile.tilePosition);
-                        }
-                    }
-
-                    activeWorldData.tiles[x, y] = currentTile;
-                }
-            }
         }
+
+        private static bool CoordsInBounds(int width, int height, Point coords) => coords.X > 0 && coords.X < width && coords.Y > 0 && coords.Y < height;
 
         public static void Update()
         {

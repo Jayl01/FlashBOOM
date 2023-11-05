@@ -1,3 +1,3 @@
 ﻿
-using var game = new GameTemplate.Main();
+using var game = new FlashBOOM.Main();
 game.Run();

@@ -1,9 +1,9 @@
 ﻿using AnotherLib.Collision;
-using GameTemplate.World;
-using GameTemplate.World.WorldObjects;
+using FlashBOOM.World;
+using FlashBOOM.World.WorldObjects;
 using Microsoft.Xna.Framework;
 
-namespace GameTemplate.Entities
+namespace FlashBOOM.Entities
 {
     public class PlatformerBody : CollisionBody
     {

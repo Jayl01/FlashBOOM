@@ -1,10 +1,10 @@
-﻿using GameTemplate.World.WorldObjects;
-using GameTemplate.World.WorldObjects.Destructibles;
+﻿using FlashBOOM.World.WorldObjects;
+using FlashBOOM.World.WorldObjects.Destructibles;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 
-namespace GameTemplate.World
+namespace FlashBOOM.World
 {
     public class WorldData
     {

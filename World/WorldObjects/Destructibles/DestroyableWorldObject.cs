@@ -1,8 +1,8 @@
-﻿using GameTemplate.Entities.Players;
+﻿using FlashBOOM.Entities.Players;
 using Microsoft.Xna.Framework;
 using System.Linq;
 
-namespace GameTemplate.World.WorldObjects.Destructibles
+namespace FlashBOOM.World.WorldObjects.Destructibles
 {
     public abstract class DestroyableWorldObject : WorldObject
     {

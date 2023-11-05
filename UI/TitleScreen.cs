@@ -3,14 +3,14 @@ using AnotherLib.Input;
 using AnotherLib.UI;
 using AnotherLib.UI.UIElements;
 using AnotherLib.Utilities;
-using GameTemplate.Effects;
-using GameTemplate.Entities.Enemies;
-using GameTemplate.Entities.Players;
-using GameTemplate.World;
+using FlashBOOM.Effects;
+using FlashBOOM.Entities.Enemies;
+using FlashBOOM.Entities.Players;
+using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameTemplate.UI
+namespace FlashBOOM.UI
 {
     public class TitleScreen : UIObject
     {

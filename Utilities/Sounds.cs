@@ -1,4 +1,4 @@
-﻿namespace GameTemplate.Utilities
+﻿namespace FlashBOOM.Utilities
 {
     public class Sounds
     {
@@ -10,13 +10,13 @@
         public const byte Jump = 5;
         public const byte Jump_Land = 6;
         public const byte Wind = 7;
-        public const byte GameTemplate_Chant = 8;
+        public const byte FlashBOOM_Chant = 8;
         public const byte FireballRune_Active = 9;
         public const byte FireballRune_Shoot = 10;
         public const byte Fireball_Land = 11;
         public const byte GravityRune_Fling = 12;
         public const byte Teleport = 13;
         public const byte SpiritBomb_Explosion = 14;
-        public const byte GameTemplate_Hurt = 15;
+        public const byte FlashBOOM_Hurt = 15;
     }
 }

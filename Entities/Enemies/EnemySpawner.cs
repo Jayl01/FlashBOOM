@@ -1,8 +1,8 @@
 ﻿using AnotherLib;
-using GameTemplate.World;
+using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 
-namespace GameTemplate.Entities.Enemies
+namespace FlashBOOM.Entities.Enemies
 {
     public class EnemySpawner
     {
@@ -35,11 +35,11 @@ namespace GameTemplate.Entities.Enemies
                         spawnPos.Y += 16f;
                 }
 
-                int enemyType = Main.random.Next(0, 1 + 1);
+                /*int enemyType = Main.random.Next(0, 1 + 1);
                 if (enemyType == 0)
-                    EvilGameTemplate.NewEvilGameTemplate(spawnPos);
+                    EvilFlashBOOM.NewEvilFlashBOOM(spawnPos);
                 else if (enemyType == 1)
-                    MatterGameTemplate.NewMatterGameTemplate(spawnPos + new Vector2(0f, -8f));
+                    MatterFlashBOOM.NewMatterFlashBOOM(spawnPos + new Vector2(0f, -8f));*/
             }
         }
     }

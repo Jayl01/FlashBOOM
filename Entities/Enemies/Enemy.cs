@@ -1,8 +1,8 @@
-﻿using GameTemplate.World;
+﻿using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 using System;
 
-namespace GameTemplate.Entities.Enemies
+namespace FlashBOOM.Entities.Enemies
 {
     public class Enemy : PlatformerBody
     {

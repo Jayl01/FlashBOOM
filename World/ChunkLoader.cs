@@ -1,10 +1,10 @@
 ﻿using AnotherLib;
-using GameTemplate.World.WorldObjects;
+using FlashBOOM.World.WorldObjects;
 using Microsoft.Xna.Framework;
 using System;
 using System.Linq;
 
-namespace GameTemplate.World
+namespace FlashBOOM.World
 {
     public class ChunkLoader
     {

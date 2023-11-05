@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameTemplate.Effects
+namespace FlashBOOM.Effects
 {
     public abstract class VisualEffect
     {
