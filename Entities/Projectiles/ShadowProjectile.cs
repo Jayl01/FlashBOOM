@@ -1,17 +1,15 @@
 /*
-Light illuminating from the flashlight
-Indicates how far you can see
-Little recoil ; can't see for a second 
-Upgradeable object
-It stays alive for 5 seconds or dies hitting an object or an enemy 
+It stays alive for 5 seconds or dies hitting an object or the player 
+similar to the LightProjectile but is more basic
 */
+
 using AnotherLib.Collision;
 using Microsoft.Xna.Framework;
 using System;
 
 namespace FlashBOOM.Entities.Projectiles
 {
-    public class LightProjectile : Projectile
+    public class ShadowProjectile : Projectile
     {
         public int timer = 0;
         public int hitBoxWidth = 5;
@@ -20,7 +18,7 @@ namespace FlashBOOM.Entities.Projectiles
         
         public Vector2 velocity = new Vector2(0, 0); // the velocity vector 
         
-        public LightProjectile()
+        public ShadowProjectile()
         {
         }
         public override void Initialize()
@@ -54,7 +52,7 @@ namespace FlashBOOM.Entities.Projectiles
             {
                 DestroyInstance();
             }
-            DetectCollisions(Main.activeEnemies);
+            DetectCollisions(Main.activePlayers);
 
            
             
@@ -64,7 +62,7 @@ namespace FlashBOOM.Entities.Projectiles
         public override void HandleCollisions(CollisionBody collider, CollisionType colliderType)
         {
             base.HandleCollisions(collider, colliderType);
-            if (colliderType == CollisionType.Enemies)
+            if (colliderType == CollisionType.Player)
             {
                 DestroyInstance();
             }

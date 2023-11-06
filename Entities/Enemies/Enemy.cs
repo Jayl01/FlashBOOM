@@ -17,6 +17,10 @@ namespace FlashBOOM.Entities.Enemies
 
         public static int EnemiesKilled = 0;
 
+        /// <summary>
+        /// Throws the enemy with the specified velocity.
+        /// </summary>
+        /// <param name="throwVelocity">The velocity at which to throw the enemy.</param>
         public void ThrowEnemy(Vector2 throwVelocity)
         {
             this.throwVelocity = throwVelocity;
