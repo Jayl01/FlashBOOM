@@ -33,7 +33,7 @@ namespace FlashBOOM.World
             {
                 for (int y = paddingSize; y < height - paddingSize; y++)
                 {
-                    worldTiles[x, y] = Tile.GetTileInfo((Tile.TileType)Main.random.Next((int)Tile.TileType.Grass, (int)Tile.TileType.Grass + 1), new Vector2(x, y) * 16f);
+                    worldTiles[x, y] = Tile.GetTileInfo((Tile.TileType)Main.random.Next((int)Tile.TileType.Grass, (int)Tile.TileType.Grass_2 + 1), new Vector2(x, y) * 16f);
                 }
             }
 

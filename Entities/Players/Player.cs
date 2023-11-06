@@ -113,6 +113,7 @@ namespace FlashBOOM.Entities.Players
                 }
             }
 
+            playerState = PlayerState.Walking;
             position += velocity;
             currentVelocity = velocity;
             playerCenter = position + new Vector2(PlayerWidth / 2f, PlayerHeight / 2f);

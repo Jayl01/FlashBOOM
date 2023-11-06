@@ -20,11 +20,6 @@ namespace FlashBOOM.World
         public bool hidden = false;
         public int hiddenRoomIndex;
         public byte customLightBlockerTexture = 0;
-        public bool borderTile = false;
-        public bool bordersUp = false;
-        public bool bordersDown = false;
-        public bool bordersLeft = false;
-        public bool bordersRight = false;
 
         private int amountOfFrames = 0;
         private int frame = 0;

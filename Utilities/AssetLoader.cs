@@ -41,8 +41,8 @@ namespace FlashBOOM.Utilities
 
             Player.playerWalkSpritesheets = new Texture2D[4];
             Player.playerWalkSpritesheets[(int)Player.Direction.Front] = LoadTex("Player/Player_WalkDown");
-            Player.playerWalkSpritesheets[(int)Player.Direction.Left] = LoadTex("Player/Player_WalkDown");
-            Player.playerWalkSpritesheets[(int)Player.Direction.Right] = LoadTex("Player/Player_WalkDown");
+            Player.playerWalkSpritesheets[(int)Player.Direction.Left] = LoadTex("Player/Player_WalkLeft");
+            Player.playerWalkSpritesheets[(int)Player.Direction.Right] = LoadTex("Player/Player_WalkRight");
             Player.playerWalkSpritesheets[(int)Player.Direction.Back] = LoadTex("Player/Player_WalkUp");
 
             Gore.goreTextures = new Texture2D[2];
