@@ -18,7 +18,6 @@ namespace FlashBOOM.Entities.Enemies
         public override int EnemyHeight  => 16; // experiment and change this
 
         public float bulletSpeed = 1.0f; // the speed of the bulle
-        public Vector2 bulletVelocity = new Vector2(0, 0); // the velocity of the bullet
 
         public override CollisionType collisionType => CollisionType.Enemies;
 
@@ -30,14 +29,18 @@ namespace FlashBOOM.Entities.Enemies
         
         }
 
-        public void shootShadow(Vector2 velocity, Player player)
+        /// <summary>
+        /// Creates a new shadow bullet and adds it to the list of active projectiles, moving it slowly towards the player.
+        /// </summary>
+        /// <param name="player">The player to aim the bullet at.</param>
+        public void shootShadow(Player player)
         {
             // create a new shadow bullet
             ShadowProjectile shadow = new ShadowProjectile();
-            // set the position of the shadow bullet to the position of the player
-            shadow.position =  player.position;
-            // set the velocity of the shadow bullet to the given velocity
-            shadow.velocity = bulletVelocity * Vector2.Normalize(velocity);
+           // move the bullet slowly to the player
+            Vector2 direction = Vector2.Normalize(player.position - this.position);
+            shadow.position += direction * bulletSpeed;
+            
             // add the shadow bullet to the list of active projectiles
             Main.activeProjectiles.Add(shadow);
         }
@@ -53,13 +56,8 @@ namespace FlashBOOM.Entities.Enemies
         public enum EnemyState
         {
             Idle,
-            Moving,
             Attacking,
             Dead
-        }
-        public void calculatePath()
-        {
-            // TODO calculate a path to the player
         }
         public override void Update()
         {
@@ -69,14 +67,9 @@ namespace FlashBOOM.Entities.Enemies
             if (Vector2.Distance(this.position, Main.activePlayers[0].position) < rangeRadius)
             {
                 state = EnemyState.Attacking;
-                shootShadow(Main.activePlayers[0].position - this.position, Main.currentPlayer);
+                shootShadow(Main.currentPlayer);
             }
-            else {
-                state = EnemyState.Moving;
-                calculatePath();
-            }
-            // if out of range move towards the player 
-            // TODO AI that calculates a path to the player
+          
 
         }
     }
