@@ -4,13 +4,11 @@ using AnotherLib.Utilities;
 using FlashBOOM.Effects;
 using FlashBOOM.Entities.Projectiles;
 using FlashBOOM.UI;
-using FlashBOOM.Utilities;
 using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
 
 namespace FlashBOOM.Entities.Players
 {
@@ -18,18 +16,18 @@ namespace FlashBOOM.Entities.Players
     {
         private const int PlayerWidth = 24;
         private const int PlayerHeight = 24;
-        private const float MoveSpeed = 1.7f;
+        private const float MoveSpeed = 1.1f;
         private readonly Vector2 FlashlightPlacementOffset = new Vector2(5, 13);
-        private readonly Vector2 FlashlightOrigin = new Vector2(2, 3);
-        private readonly Vector2 FlashlightSize = new Vector2(13, 7);
+        private readonly Vector2 FlashlightOrigin = new Vector2(2.5f, 3);
+        private readonly Vector2 FlashlightSize = new Vector2(5, 6);
         public static Texture2D[] playerWalkSpritesheets;
         public static Texture2D playerFlashlightTexture;
         private Texture2D currentTexture;
+        public static int health = 3;
 
 
         public Vector2 playerCenter;
         public Vector2 oldPosition;
-        private Vector2 throwVelocity;
         public Direction direction = Direction.Front;
         public int playerHealth = 3;
         private int immunityTimer = 0;
@@ -42,6 +40,9 @@ namespace FlashBOOM.Entities.Players
         private PlayerState oldPlayerState;
         private bool loadedWorld = false;
         private Vector2 currentVelocity;
+        private int sprintCapacity = 120;
+        private int sprintCooldown = 0;
+        private int musicTimer = 0;
 
         public override CollisionType collisionType => CollisionType.Player;
         public override CollisionType[] colliderTypes => new CollisionType[2] { CollisionType.Enemies, CollisionType.EnemyProjectiles };
@@ -77,6 +78,7 @@ namespace FlashBOOM.Entities.Players
             hitbox = new Rectangle(0, 0, PlayerWidth, PlayerHeight);
             animRect = new Rectangle(0, 0, PlayerWidth, PlayerHeight);
             Main.uiList.Add(PlayerUI.NewPlayerUI());
+            health = 3;
         }
 
         public override void Update()
@@ -90,22 +92,41 @@ namespace FlashBOOM.Entities.Players
             Vector2 moveVelocity = Move(MoveSpeed);
             if (playerHealth <= 0)
                 moveVelocity = Vector2.Zero;
-            Vector2 velocity = moveVelocity + throwVelocity;
-            if (tileCollisionDirection[CollisionDirection_Bottom] && tileCollisionDirection[CollisionDirection_Left] && tileCollisionDirection[CollisionDirection_Right])
-                position.Y -= 1f;
-            if (throwVelocity != Vector2.Zero)
+            if (sprintCapacity > 0 && InputManager.IsKeyPressed(Keys.LeftShift))
             {
-                if (Math.Abs(throwVelocity.X) < 0.01f && Math.Abs(throwVelocity.Y) < 0.01f)
-                    throwVelocity = Vector2.Zero;
-                else
-                    throwVelocity *= 0.97f;
+                moveVelocity *= 1.8f;
+                sprintCapacity--;
+                sprintCooldown = 180;
+            }
+
+            if (sprintCooldown > 0)
+                sprintCooldown--;
+            else
+            {
+                if (sprintCapacity < 120)
+                    sprintCapacity++;
+            }
+            if (musicTimer > 0)
+            {
+                musicTimer--;
+                Main.ambienceMusic.Stop();
+                if (Main.actionMusic.State != Microsoft.Xna.Framework.Audio.SoundState.Playing)
+                    Main.actionMusic.Play();
+            }
+            else if (Main.ambienceMusic.State != Microsoft.Xna.Framework.Audio.SoundState.Playing)
+            {
+                Main.ambienceMusic.Play();
+                Main.actionMusic.Stop();
             }
 
             if (playerHealth > 0)
             {
                 if (InputManager.IsMouseLeftJustPressed() || InputManager.IsButtonJustPressed(InputManager.attackButton))
                 {
-
+                    Vector2 projVel = GameData.MouseWorldPosition - playerCenter;
+                    projVel.Normalize();
+                    LightProjectile.NewLightProjectile(playerCenter + (Vector2Utils.CreateAngleVector(flashlightRotation) * 17f), projVel);
+                    musicTimer = 120;
                 }
                 if (GameInput.IsAttackHeld())
                 {
@@ -114,8 +135,8 @@ namespace FlashBOOM.Entities.Players
             }
 
             playerState = PlayerState.Walking;
-            position += velocity;
-            currentVelocity = velocity;
+            position += moveVelocity;
+            currentVelocity = moveVelocity;
             playerCenter = position + new Vector2(PlayerWidth / 2f, PlayerHeight / 2f);
             hitbox.X = (int)(position.X + hitboxOffset.X);
             hitbox.Y = (int)(position.Y + hitboxOffset.Y);
@@ -229,6 +250,7 @@ namespace FlashBOOM.Entities.Players
                 {
                     frameCounter = 0;
                     frame = 1;
+                    animRect.Y = frame * PlayerHeight;
                 }
 
                 if (frameCounter >= 7)
@@ -240,7 +262,7 @@ namespace FlashBOOM.Entities.Players
 
                     animRect.Y = frame * PlayerHeight;
                     //if (frame == 1 || frame == 3)
-                        //SoundPlayer.PlaySoundFromOtherSource(Main.random.Next(Sounds.Step_1, Sounds.Step_3 + 1), playerCenter, 12, soundPitch: Main.random.Next(-4, 4 + 1) / 10f);
+                    //SoundPlayer.PlaySoundFromOtherSource(Main.random.Next(Sounds.Step_1, Sounds.Step_3 + 1), playerCenter, 12, soundPitch: Main.random.Next(-4, 4 + 1) / 10f);
                 }
 
             }
@@ -263,10 +285,14 @@ namespace FlashBOOM.Entities.Players
         {
             SpriteEffects spriteEffects = SpriteEffects.None;
             SpriteEffects armSpriteEffects = SpriteEffects.None;
-            Vector2 armDrawPosition = position + FlashlightPlacementOffset;
-
+            Vector2 flashlightPos = playerCenter + (Vector2Utils.CreateAngleVector(flashlightRotation) * 12f);
+            if (flashlightRotation + Math.PI < Math.PI)
+                spriteBatch.Draw(playerFlashlightTexture, flashlightPos, null, Color.White, flashlightRotation - MathHelper.ToRadians(90f), FlashlightOrigin, 1f, armSpriteEffects, 0f);
             spriteBatch.Draw(currentTexture, position, animRect, Color.White, 0f, Vector2.Zero, 1f, spriteEffects, 0f);
-            //spriteBatch.Draw(playerFlashlightTexture, armDrawPosition, null, Color.White, flashlightRotation, FlashlightOrigin, 1f, armSpriteEffects, 0f);
+            if (sprintCapacity < 120)
+                spriteBatch.Draw(Smoke.smokePixelTextures[0], playerCenter + new Vector2(0f, 14f), null, Color.Lerp(Color.White, Color.Red, 1f - (sprintCapacity / 120f)), 0f, Vector2.One, new Vector2(12f * (sprintCapacity / 120f), 1f) * 0.4f, SpriteEffects.None, 0f);
+            if (flashlightRotation + Math.PI > Math.PI)
+                spriteBatch.Draw(playerFlashlightTexture, flashlightPos, null, Color.White, flashlightRotation - MathHelper.ToRadians(90f), FlashlightOrigin, 1f, armSpriteEffects, 0f);
         }
     }
 }

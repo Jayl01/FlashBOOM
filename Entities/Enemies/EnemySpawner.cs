@@ -1,5 +1,5 @@
 ﻿using AnotherLib;
-using FlashBOOM.World;
+using AnotherLib.Utilities;
 using Microsoft.Xna.Framework;
 
 namespace FlashBOOM.Entities.Enemies
@@ -20,26 +20,13 @@ namespace FlashBOOM.Entities.Enemies
             if (enemySpawnTimer >= enemySpawnTime)
             {
                 enemySpawnTimer = 0;
-                int direction = 1;
-                if (Main.random.Next(0, 1 + 1) == 0)
-                    direction = -1;
-                Vector2 spawnPos = new Vector2(Main.currentPlayer.playerCenter.X + (GameScreen.halfScreenWidth * direction), (int)(Main.currentPlayer.playerCenter.Y / 16f) * 16);
-                if (!ChunkLoader.CheckForSafeTileCoordinates(spawnPos))
-                    return;
+                Vector2 spawnPos = Main.currentPlayer.playerCenter + (Vector2Utils.CreateAngleVector(MathHelper.ToRadians(Main.random.Next(0, 360))) * GameScreen.halfScreenWidth);
 
-                while (ChunkLoader.CheckForSafeTileCoordinates(spawnPos) && !(WorldClass.activeWorldData.tiles[(int)(spawnPos.X / 16f), (int)(spawnPos.Y / 16f) + 1].isCollideable && !WorldClass.activeWorldData.tiles[(int)(spawnPos.X / 16f), (int)(spawnPos.Y / 16f)].isCollideable))
-                {
-                    if (WorldClass.activeWorldData.tiles[(int)(spawnPos.X / 16f), (int)(spawnPos.Y / 16f)].isCollideable && WorldClass.activeWorldData.tiles[(int)(spawnPos.X / 16f), (int)(spawnPos.Y / 16f) + 1].isCollideable)
-                        spawnPos.Y -= 16f;
-                    else if (!WorldClass.activeWorldData.tiles[(int)(spawnPos.X / 16f), (int)(spawnPos.Y / 16f)].isCollideable && !WorldClass.activeWorldData.tiles[(int)(spawnPos.X / 16f), (int)(spawnPos.Y / 16f) + 1].isCollideable)
-                        spawnPos.Y += 16f;
-                }
-
-                /*int enemyType = Main.random.Next(0, 1 + 1);
+                int enemyType = Main.random.Next(0, 1 + 1);
                 if (enemyType == 0)
-                    EvilFlashBOOM.NewEvilFlashBOOM(spawnPos);
+                    EnemyShooter.NewEnemyShooter(spawnPos);
                 else if (enemyType == 1)
-                    MatterFlashBOOM.NewMatterFlashBOOM(spawnPos + new Vector2(0f, -8f));*/
+                    BlockerEnemy.NewBlockerEnemy(spawnPos);
             }
         }
     }

@@ -4,6 +4,7 @@ similar to the LightProjectile but is more basic
 */
 
 using AnotherLib.Collision;
+using FlashBOOM.Entities.Players;
 using Microsoft.Xna.Framework;
 using System;
 
@@ -14,8 +15,9 @@ namespace FlashBOOM.Entities.Projectiles
         public int timer = 0;
         public int hitBoxWidth = 5;
         public int hitBoxHeight = 5;
-        public float projectileSpeed = 1.0f; 
-        
+        public float projectileSpeed = 1.0f;
+        public override CollisionType collisionType => CollisionType.Player;
+
         public Vector2 velocity = new Vector2(0, 0); // the velocity vector 
         
         public ShadowProjectile()
@@ -23,8 +25,6 @@ namespace FlashBOOM.Entities.Projectiles
         }
         public override void Initialize()
         {
-            base.Initialize();
-
             Rectangle hitbox = new Rectangle((int)position.X, (int)position.Y, 
                                               hitBoxWidth, hitBoxHeight);
         }
@@ -34,36 +34,30 @@ namespace FlashBOOM.Entities.Projectiles
         /// <param name="speed">The speed at which to move the projectile.</param>
         private void Move(float speed)
         {
-        
             position.X += velocity.X * speed;
             position.Y += velocity.Y * speed;
-
+            hitbox.Location = position.ToPoint();
         }
+
         public override void Update()
         {
             base.Update();
             timer++;
-            if (timer >= 5)
-            {
+            if (timer >= 8 * 60)
                 DestroyInstance();
-            }
-            // 
             if (DetectTileCollisionsByCollisionStyle(this.position))
-            {
                 DestroyInstance();
-            }
             DetectCollisions(Main.activePlayers);
-
-           
-            
-
-            
+            Move(1f);
         }
+
         public override void HandleCollisions(CollisionBody collider, CollisionType colliderType)
         {
-            base.HandleCollisions(collider, colliderType);
             if (colliderType == CollisionType.Player)
             {
+                Player.health -= 1;
+                if (Player.health <= 0)
+                    Main.EndGame();
                 DestroyInstance();
             }
         }

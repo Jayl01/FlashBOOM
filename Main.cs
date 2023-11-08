@@ -13,10 +13,12 @@ using FlashBOOM.Utilities;
 using FlashBOOM.World;
 using FlashBOOM.World.WorldObjects;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using static AnotherLib.Drawing.SpriteBatchData;
 
@@ -33,6 +35,8 @@ namespace FlashBOOM
         public static Player currentPlayer;
         public static Random random;
         private static bool closeGame;
+        public static SoundEffectInstance ambienceMusic;
+        public static SoundEffectInstance actionMusic;
 
         private static RenderTarget2D backgroundTarget;
         private static RenderTarget2D gameTarget;
@@ -111,6 +115,16 @@ namespace FlashBOOM
             Window.ClientSizeChanged += ScreenResized;
             activeUI = TitleScreen.NewTitleScreen();
             SoundPlayer.activeSoundEffects = new List<TrackedSoundEffectInstance>();
+        }
+
+        public static void EndGame()
+        {
+            screenMatrix = Matrix.CreateScale(3f, 3f, 1f);
+            camera = new Camera(Vector2.Zero, new Vector2(GameScreen.resolutionWidth, GameScreen.resolutionHeight), Camera.ControlMode.Mouse);
+            camera.SetToUICamera();
+            camera.cameraOrigin = new Vector2(GameScreen.resolutionWidth, GameScreen.resolutionHeight) / 2f;
+            activeUI = TitleScreen.NewTitleScreen();
+            gameState = GameState.Title;
         }
 
         protected override void Update(GameTime gameTime)

@@ -1,6 +1,8 @@
 ﻿using AnotherLib.Utilities;
 using FlashBOOM.Effects;
+using FlashBOOM.Entities.Enemies;
 using FlashBOOM.Entities.Players;
+using FlashBOOM.Entities.Projectiles;
 using FlashBOOM.World;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -44,6 +46,11 @@ namespace FlashBOOM.Utilities
             Player.playerWalkSpritesheets[(int)Player.Direction.Left] = LoadTex("Player/Player_WalkLeft");
             Player.playerWalkSpritesheets[(int)Player.Direction.Right] = LoadTex("Player/Player_WalkRight");
             Player.playerWalkSpritesheets[(int)Player.Direction.Back] = LoadTex("Player/Player_WalkUp");
+            Player.playerFlashlightTexture = LoadTex("Player/PlayerFlashlight");
+            LightProjectile.bulletTexture = LoadTex("Projectiles/FlashlightBullet");
+
+            EnemyShooter.enemyTexture = LoadTex("Enemies/EnemyShooter");
+            BlockerEnemy.enemyTexture = LoadTex("Enemies/BlockerEnemy");
 
             Gore.goreTextures = new Texture2D[2];
 
@@ -55,7 +62,8 @@ namespace FlashBOOM.Utilities
         private void LoadSounds()
         {
             SoundPlayer.sounds = new SoundEffect[16];
-
+            Main.ambienceMusic = LoadSFX("Music/Ambient").CreateInstance();
+            Main.actionMusic = LoadSFX("Music/Action").CreateInstance();
         }
     }
 }

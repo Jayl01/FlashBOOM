@@ -38,7 +38,7 @@ namespace FlashBOOM.UI
             Main.camera.SetToUICamera();
             Main.camera.cameraOrigin = new Vector2(GameScreen.resolutionWidth, GameScreen.resolutionHeight) / 2f;
 
-            titleText = new Text(Main.gameFont, "CASTER", (GameScreen.center / 3f) - new Vector2(0f, GameScreen.halfScreenHeight - 5), Color.White, 2f, true);
+            titleText = new Text(Main.gameFont, "FlashBOOM", (GameScreen.center / 3f) - new Vector2(0f, GameScreen.halfScreenHeight - 5), Color.White, 2f, true);
             titleText.position.Y += titleText.size.Y;
 
             playButton = new TextButton(Main.gameFont, "PLAY", (GameScreen.center / 3f) + new Vector2(-12f, -ButtonSpacing), 0.6f, 0.75f, Color.White, Color.Green, true);
