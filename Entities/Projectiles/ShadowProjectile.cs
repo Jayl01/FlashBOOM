@@ -16,7 +16,8 @@ namespace FlashBOOM.Entities.Projectiles
         public int hitBoxWidth = 5;
         public int hitBoxHeight = 5;
         public float projectileSpeed = 1.0f;
-        public override CollisionType collisionType => CollisionType.Player;
+        public override CollisionType collisionType => CollisionType.Enemies;
+        public override CollisionType[] colliderTypes => new CollisionType[1] { CollisionType.Player };
 
         public Vector2 velocity = new Vector2(0, 0); // the velocity vector 
         

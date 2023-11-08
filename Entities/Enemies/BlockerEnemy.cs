@@ -13,6 +13,9 @@ namespace FlashBOOM.Entities.Enemies
         public override int EnemyHeight => 16; // experiment and change this
         public override int EnemyHealth => 6;
 
+        public override CollisionType collisionType => CollisionType.Enemies;
+        public override CollisionType[] colliderTypes => new CollisionType[1] { CollisionType.Player };
+
         public static void NewBlockerEnemy(Vector2 pos)
         {
             BlockerEnemy enemy = new BlockerEnemy();

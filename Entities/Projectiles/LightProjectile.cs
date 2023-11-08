@@ -22,6 +22,9 @@ namespace FlashBOOM.Entities.Projectiles
         public Vector2 bulVel = new Vector2(0, 0); // the velocity vector 
         public static Texture2D bulletTexture;
 
+        public override CollisionType collisionType => CollisionType.FriendlyProjectiles;
+        public override CollisionType[] colliderTypes => new CollisionType[1] { CollisionType.Enemies };
+
         public static void NewLightProjectile(Vector2 position, Vector2 velocity)
         {
             LightProjectile lightProjectile = new LightProjectile();
@@ -50,7 +53,6 @@ namespace FlashBOOM.Entities.Projectiles
 
         public override void HandleCollisions(CollisionBody collider, CollisionType colliderType)
         {
-            base.HandleCollisions(collider, colliderType);
             if (colliderType == CollisionType.Enemies)
             {
                 (collider as Enemy).health -= 1;

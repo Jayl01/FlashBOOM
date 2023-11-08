@@ -24,6 +24,7 @@ namespace FlashBOOM.Entities.Enemies
         public static Texture2D enemyTexture;
 
         public override CollisionType collisionType => CollisionType.Enemies;
+        public override CollisionType[] colliderTypes => new CollisionType[1] { CollisionType.Player };
 
         public static void NewEnemyShooter(Vector2 pos)
         {
@@ -31,13 +32,13 @@ namespace FlashBOOM.Entities.Enemies
             EnemyShooter enemy = new EnemyShooter();
             // set the position of the enemy to the given position
             enemy.position = pos;
+            enemy.Initialize();
             // add the enemy to the list of active enemies
             Main.activeEnemies.Add(enemy);
         }
 
         public override void Initialize()
         {
-            base.Initialize();
             health = EnemyHealth;
             hitbox = new Rectangle((int)position.X, (int)position.Y, EnemyWidth, EnemyHeight);
         }
